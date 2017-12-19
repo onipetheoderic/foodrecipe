@@ -1,0 +1,55 @@
+<%= simple_form_for @recipe, html: { multipart: true } do |f| %> 
+	<% if @recipe.errors.any? %>
+		<div class="errors">
+			<p>
+				<%= @recipe.errors.count %>
+				prevented this recipe from saving to the db
+			</p>
+			<ul>
+				<%= @recipe.errors.full_messages.each do |msg| %>
+				<li><%=msg%></li>
+				<% end %>
+			</ul>
+	<% end %>
+			<div class="panel-body">
+			<%= f.input :title, input_html: { class: "form-control" } %>
+			<%= f.input :description, input_html: { class: "form-control" } %> 
+			<%= f.input :image, input_html: { class: "form-control" } %><%# to add an image%>
+			<%# to make it work, we go  to the migration file and append [5.1] to the first line..cuz rails 5 needs specification before rake db:migrate %>
+
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Ingredients</h3>
+					<div id="ingredients">
+						<%= f.simple_fields_for :ingredients do |ingredient| %>
+						<%= render 'ingredients_fields', f: ingredient %>
+						
+						<% end %>
+						<%# these button has to be outside the scope, so that it would show%>
+						<div class="links">
+							<%= link_to_add_association 'Add Ingredient', f, :ingredients, partial: 'ingredients_fields' %>
+						</div>
+					</div>
+				</div>	
+				<%# for the directions nested forms %>
+				<div class="col-md-6">
+					<h3>Directions</h3>
+					<div id="ingredients">
+						<%= f.simple_fields_for :directions do |direction| %>
+						<%= render 'directions_fields', f: direction %>
+						
+						<% end %>
+						<%# these button has to be outside the scope, so that it would show%>
+						<div class="links">
+							<%= link_to_add_association 'Add Step', f, :directions, partial: 'directions_fields' %>
+						</div>
+					</div>
+				</div>				
+			</div>
+
+			<%= f.button :submit, class: "btn btn-primary" %>
+			</div>
+			
+		</div>
+	
+<% end %>

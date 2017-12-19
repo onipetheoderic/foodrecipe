@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Foodrecipes</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+<% if notice %>
+<div id="notice_wrapper">
+    <p class="notice"><%= notice %></p>
+</div>
+
+<% elsif alert %>
+  <div id="notice_wrapper">
+    <p class="alert"><%= alert %> </p>
+  </div>
+<% end %>
+  <nav class="navbar navbar-light navbar-default">
+
+	  <div class="container">
+	  <div class="navbar-header">
+			
+      <%= link_to "FOOD RECIPE", root_path, class: "navbar-brand"  %>
+    	  	<ul class="nav navbar-nav">
+    	  	
+      		<% if user_signed_in? %>
+              <li><%= link_to "New Food Recipe", new_recipe_path %></li>
+              <li><%=link_to "Account", edit_user_registration_path %></li>
+              <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
+          <% else %>
+          
+            <li><%=link_to "Sign Up", new_user_registration_path, class: "active" %> </li>
+            <li><%=link_to "Sign In", new_user_session_path, class: "active" %></li>
+          <% end %>
+      	</ul>
+	 </div>
+   
+  </div>
+  	
+  </nav>
+  <div class="container">
+    <% if not user_signed_in? %>
+    <li><%=link_to "Sign In to start creating new recipes", new_user_session_path, class: "active" %></li>
+  <% end %>
+   <ul>
+   <%#
+  <% if flash[:notice] %>
+    <!-- <%#<div class="alert-info"><%= flash[:notice] %></div>  -->
+  <%#<% end %>        
+  </ul>
+  
+  </div>
+  
+    <%= yield %>
+  </body>
+</html>
+
+<div class="container">
+		

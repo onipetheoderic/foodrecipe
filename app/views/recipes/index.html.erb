@@ -1,0 +1,20 @@
+<%#n we need to add each_slice, so that it can have multiple columns%>
+<% @recipes.each_slice(3) do |recipes| %>
+<div class="row">
+	<% recipes.each do |recipe| %>
+		<div class="col-md-4">
+			<div class="recipe">
+				<div class="image_wrapper">
+					<%=link_to recipe do %>
+					<%= image_tag recipe.image.url(:medium) %>
+				<h2><%= recipe.title %></h2>
+					<% end %>
+					
+				</div>
+				
+			</div>
+			
+		</div>
+<% end %>
+</div>
+<% end %>
