@@ -48,7 +48,7 @@ we now copy and paste the accept nested attributes
   heroku create <name of app>
   git push heroku master
   heroku run db:migrate
- 
+ heroku open
 
   rails c
   @recipe = Recipe.last //grabs the last recipe for us, we notice that the user_id is nil
